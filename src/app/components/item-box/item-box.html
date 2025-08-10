@@ -1,4 +1,4 @@
-<div class="body">
+<div class="body" (pointerdown)="onPress($event)" (pointerup)="onRelease($event)" (pointerleave)="onCancel()">
     @if (item.details) {
         <p>{{item.details.name}}</p>
         <p>{{item.details.price}}</p>

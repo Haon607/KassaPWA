@@ -1,9 +1,17 @@
 <div class="body">
-    @for (row of itemRows; track row[0].index) {
-        @for (item of row; track item.index) {
-<!--            <app-item-box [item]="item" (m (click)=""></app-item-box>-->
+    <div class="flex-col">
+        @for (row of itemRows; track row[0].index) {
+            <div class="flex-row">
+                @for (item of row; track item.index) {
+                    <app-item-box class="item-box"
+                                  [item]="item"
+                                  (clickAction)="text = 'click'"
+                                  (holdAction)="text = 'Hold'"></app-item-box>
+                }
+            </div>
+        } @empty {
+            <p>Keine Items</p>
         }
-    } @empty {
-        <p>Keine Antwort</p>
-    }
+    </div>
 </div>
+<button id="newButton" (click)="newItem()">+{{ text }}</button>

@@ -1,0 +1,16 @@
+.item-box {
+    height: 200px;
+    flex-grow: 1;
+}
+
+.flex-col .flex-row {
+    width: 98vw;
+    height: 200px;
+
+}
+
+#newButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}

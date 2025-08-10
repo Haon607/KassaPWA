@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Item } from "../../models/item";
 
 @Component({
@@ -10,5 +10,29 @@ import { Item } from "../../models/item";
 })
 export class ItemBox {
   @Input() item!: Item;
+  @Output() clickAction = new EventEmitter<void>();
+  @Output() holdAction = new EventEmitter<void>();
 
+  private pressTimer: any;
+  private isHolding = false;
+  private readonly holdThreshold = 500;
+
+  onPress(event: PointerEvent) {
+    this.isHolding = false;
+    this.pressTimer = setTimeout(() => {
+      this.isHolding = true;
+      this.holdAction.emit();
+    }, this.holdThreshold);
+  }
+
+  onRelease(event: PointerEvent) {
+    clearTimeout(this.pressTimer);
+    if (!this.isHolding) {
+      this.clickAction.emit();
+    }
+  }
+
+  onCancel() {
+    clearTimeout(this.pressTimer);
+  }
 }

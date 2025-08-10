@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Memory } from "../../services/memory.service";
 import { Item } from "../../models/item";
 import { ItemBox } from "../item-box/item-box";
-
 @Component({
     selector: 'app-item-table',
     imports: [
@@ -14,6 +13,7 @@ import { ItemBox } from "../item-box/item-box";
 })
 export class ItemTable {
     items: Item[];
+    text: string = '';
 
     constructor(protected storage: Memory) {
         this.items = storage.getItems();
@@ -26,5 +26,12 @@ export class ItemTable {
             rows.push(this.items.slice(i, i + rowSize));
         }
         return rows;
+    }
+
+    newItem() {
+        this.items.push({
+            index: this.items.length // TODO This cant stay after deletion
+        });
+        this.storage.setItems(this.items);
     }
 }
