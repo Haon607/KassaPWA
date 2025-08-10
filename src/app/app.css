@@ -1,0 +1,11 @@
+#header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 76px;
+    z-index: 1000;
+}
+
+#router-wrapper {
+    margin-top: 100px;
+}

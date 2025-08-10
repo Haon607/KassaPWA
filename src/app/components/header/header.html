@@ -1,0 +1,5 @@
+<div class="body">
+    @for (menu of menus; track menu) {
+        <button (click)="this.router.navigateByUrl(menu.navigateTo)">{{menu.optionName}}</button>
+    }
+</div>

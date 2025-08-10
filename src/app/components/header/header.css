@@ -1,0 +1,10 @@
+.body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 15px;
+    border-bottom: var(--primary) 10px solid;
+    background-color: var(--accentBackground);
+}

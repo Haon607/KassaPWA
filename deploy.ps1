@@ -6,7 +6,7 @@ $tempDeploy = "tempDeploy"
 
 Write-Host "Building Angular app..."
 npm install
-npm run build --configuration=production
+npm run build
 Pop-Location
 
 Write-Host "Preparing deployment package..."

@@ -1,0 +1,9 @@
+<div class="body">
+    @for (row of itemRows; track row[0].index) {
+        @for (item of row; track item.index) {
+<!--            <app-item-box [item]="item" (m (click)=""></app-item-box>-->
+        }
+    } @empty {
+        <p>Keine Antwort</p>
+    }
+</div>
