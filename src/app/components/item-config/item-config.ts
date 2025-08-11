@@ -41,4 +41,8 @@ export class ItemConfig {
         this.storage.setItems(this.items);
         this.router.navigateByUrl('items');
     }
+
+    reset() {
+        this.item.details = {price: 0, name: '', color: '#808080'};
+    }
 }

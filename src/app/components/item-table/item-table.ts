@@ -5,6 +5,7 @@ import { ItemBox } from "../item-box/item-box";
 import { Configuration } from "../../models/configuration";
 import { CurrencyPipe, NgStyle } from "@angular/common";
 import { Router } from "@angular/router";
+import { CalculationItem } from "../../models/calculation";
 
 @Component({
     selector: 'app-item-table',
@@ -19,7 +20,6 @@ import { Router } from "@angular/router";
 })
 export class ItemTable {
     items: Item[];
-    text: string = '';
     config: Configuration;
 
     constructor(protected storage: Memory, private router: Router) {
@@ -42,12 +42,17 @@ export class ItemTable {
         return rows;
     }
 
+    get price() {
+        return this.items.map(item => (item.details?.price ?? 0) * (item.amount ?? 0)).reduce((prev, curr) => prev + curr);
+    }
+
     holdItem(item: Item) {
         if (item.details && item.amount && item.amount > 0) {
             item.amount--;
         } else if (this.config.itemsEditable) {
             this.router.navigateByUrl('item/' + item.index)
         }
+        this.storage.setItems(this.items);
     }
 
     clickItem(item: Item) {
@@ -55,10 +60,18 @@ export class ItemTable {
             if (!item.amount) item.amount = 0;
             item.amount++;
         }
+        this.storage.setItems(this.items);
     }
 
     submit() {
-
+        let calculationItems = this.storage.getCalculationItems()
+            .map(obj => new CalculationItem(obj.name, obj.price, obj.amount));
+        this.items.filter(item => item.amount && item.amount > 0).forEach(item => {
+            calculationItems = new CalculationItem(item).addThisToThatArray(calculationItems);
+            item.amount = undefined;
+        });
+        this.storage.setCalculationItems(calculationItems);
+        this.storage.setItems(this.items);
     }
 
     reset() {
@@ -68,9 +81,6 @@ export class ItemTable {
                 return item;
             } else return item;
         })
-    }
-
-    get price() {
-        return this.items.map(item => (item.details?.price ?? 0) * (item.amount ?? 0)).reduce((prev, curr) => prev + curr);
+        this.storage.setItems(this.items);
     }
 }

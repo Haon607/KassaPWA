@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Item } from "../models/item";
 import { Configuration } from "../models/configuration";
+import { CalculationItem } from "../models/calculation";
 
 @Injectable({
     providedIn: 'root'
@@ -35,6 +36,22 @@ export class Memory {
                 itemsPerRow: 5,
                 itemsEditable: true,
             };
+        }
+    }
+
+    public setCalculationItems(items: CalculationItem[]) {
+        localStorage['calculationitems'] = JSON.stringify(items);
+    }
+
+    public deleteCalculationItems() {
+        localStorage.removeItem('calculationitems');
+    }
+
+    public getCalculationItems(): CalculationItem[] {
+        try {
+            return JSON.parse(localStorage['calculationitems']);
+        } catch (e) {
+            return [];
         }
     }
 }
