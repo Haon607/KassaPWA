@@ -1,12 +1,21 @@
 <div class="body">
-    <div class="flex-col">
+    <div id="toolbar" class="flex-col flex-center">
+        <div class="flex-row flex-size">
+            <button (click)="reset()">Löschen</button>
+            <h1 id="price">{{ price | currency: 'EUR' }}</h1>
+            <button (click)="submit()">Einspeichern</button>
+        </div>
+    </div>
+
+    <div class="flex-col flex-size">
         @for (row of itemRows; track row[0].index) {
-            <div class="flex-row">
+            <div class="flex-row flex-size">
                 @for (item of row; track item.index) {
                     <app-item-box class="item-box"
+                                  [ngStyle]="{'font-weight': !item.amount ? 'normal' : 'bold'}"
                                   [item]="item"
-                                  (clickAction)="text = 'click'"
-                                  (holdAction)="text = 'Hold'"></app-item-box>
+                                  (clickAction)="clickItem(item)"
+                                  (holdAction)="holdItem(item)"></app-item-box>
                 }
             </div>
         } @empty {
@@ -14,4 +23,3 @@
         }
     </div>
 </div>
-<button id="newButton" (click)="newItem()">+{{ text }}</button>

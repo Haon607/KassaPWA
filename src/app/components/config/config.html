@@ -1,0 +1,28 @@
+<div class="body">
+    <div class="flex-col" style="gap: 15px">
+        <div class="flex-col flex-center">
+            <label>Gesamtmenge Kacheln:</label>
+            <input type="number" [(ngModel)]="config.amountOfItems">
+        </div>
+        <div class="flex-col flex-center">
+            <label>Anzahl Kacheln pro Reihe:</label>
+            <input type="number" [(ngModel)]="config.itemsPerRow">
+        </div>
+        <div class="flex-col flex-center">
+            <label>Sind Kacheln bearbeitbar:</label>
+            <input type="checkbox" [(ngModel)]="config.itemsEditable">
+        </div>
+    </div>
+    <div id="toolbar" class="flex-col flex-center">
+        @if (originalConfig.amountOfItems > config.amountOfItems) {
+            <span>Speichern kann zum Verlust von bereits definierten Kacheln führen!</span>
+        }
+        @if (!compareObjects(originalConfig, config)) {
+            <span>Ungespeicherte Änderungen!</span>
+        }
+        <div class="flex-row">
+            <button [disabled]="compareObjects(originalConfig, config)" (click)="cancel()">Änderungen verwerfen</button>
+            <button [disabled]="compareObjects(originalConfig, config)" style="background: var(--primary); color: white" (click)="save()">Speichern</button>
+        </div>
+    </div>
+</div>

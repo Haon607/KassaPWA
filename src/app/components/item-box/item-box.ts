@@ -1,9 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Item } from "../../models/item";
+import { CurrencyPipe, NgStyle } from "@angular/common";
+import { getContrastColor } from "../../../utils";
 
 @Component({
   selector: 'app-item-box',
-  imports: [],
+  imports: [
+    CurrencyPipe,
+    NgStyle
+  ],
   templateUrl: './item-box.html',
   standalone: true,
   styleUrl: './item-box.css'
@@ -35,4 +40,6 @@ export class ItemBox {
   onCancel() {
     clearTimeout(this.pressTimer);
   }
+
+  protected readonly getContrastColor = getContrastColor;
 }

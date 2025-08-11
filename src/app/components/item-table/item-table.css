@@ -1,9 +1,33 @@
-.item-box {
-    height: 200px;
-    flex-grow: 1;
+#toolbar {
+    position: fixed;
+    top: 50px;
+    width: 100%;
+    height: 65px;
+    .flex-size {
+        align-items: center;
+        button {
+            width: 15%;
+        }
+    }
+    background: white;
 }
 
-.flex-col .flex-row {
+#price {
+    width: 70%;
+    text-align: center;
+    font-size: 50px;
+}
+
+.body {
+    margin-top: 115px;
+}
+
+.item-box {
+    height: 110px;
+    width: 100%;
+}
+
+.flex-size {
     width: 98vw;
     height: 200px;
 
@@ -11,6 +35,6 @@
 
 #newButton {
     position: fixed;
-    bottom: 10px;
+    top: 10px;
     right: 10px;
 }

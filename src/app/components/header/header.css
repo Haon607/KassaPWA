@@ -8,3 +8,7 @@
     border-bottom: var(--primary) 10px solid;
     background-color: var(--accentBackground);
 }
+
+button {
+    height: 30px;
+}

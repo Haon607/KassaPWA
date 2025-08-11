@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Item } from "../models/item";
+import { Configuration } from "../models/configuration";
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,30 @@ export class Memory {
     }
 
     public getItems(): Item[] {
-        return JSON.parse(localStorage['items']) ?? [];
+        try {
+            return JSON.parse(localStorage['items']);
+        } catch (e) {
+            return [];
+        }
+    }
+
+    public setConfig(config: Configuration) {
+        localStorage['config'] = JSON.stringify(config);
+    }
+
+    public deleteConfig() {
+        localStorage.removeItem('config');
+    }
+
+    public getConfig(): Configuration {
+        try {
+            return JSON.parse(localStorage['config']);
+        } catch (e) {
+            return {
+                amountOfItems: 25,
+                itemsPerRow: 5,
+                itemsEditable: true,
+            };
+        }
     }
 }

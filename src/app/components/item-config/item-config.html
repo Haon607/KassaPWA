@@ -1,0 +1,21 @@
+<div class="body">
+    <div class="flex-col" style="gap: 15px">
+        <div class="flex-col flex-center">
+            <label>Name:</label>
+            <input type="text" [(ngModel)]="item.details!.name">
+        </div>
+        <div class="flex-col flex-center">
+            <label>Preis:</label>
+            <input type="number" [(ngModel)]="item.details!.price">
+        </div>
+        <div class="flex-col flex-center">
+            <label>Farbe:</label>
+            <input type="color" [(ngModel)]="item.details!.color">
+        </div>
+    </div>
+    <div id="toolbar" class="flex-col flex-center">
+        <div class="flex-row">
+            <button style="background: var(--primary); color: white" (click)="save()">Speichern</button>
+        </div>
+    </div>
+</div>

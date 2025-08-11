@@ -1,0 +1,8 @@
+#toolbar {
+    position: fixed;
+    bottom: 10px;
+    span {
+        color: red;
+        font-weight: bold;
+    }
+}

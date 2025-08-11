@@ -1,5 +1,7 @@
 @import './global-styles/buttons.css';
+@import './global-styles/inputs.css';
 @import './global-styles/vars.css';
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 * {
     margin: 0;
@@ -33,6 +35,11 @@ body {
     display: flex;
     flex-direction: row;
     gap: 5px;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
 }
 
 .content {

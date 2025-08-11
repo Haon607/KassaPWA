@@ -11,6 +11,9 @@ import { Router } from "@angular/router";
 })
 export class Header {
   menus: MenuOption[] = [{
+    optionName: "Einstellungen",
+    navigateTo: "config"
+  }, {
     optionName: "Kassa",
     navigateTo: "items"
   }, {
