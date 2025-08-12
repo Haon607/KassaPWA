@@ -1,6 +1,6 @@
 <div class="body">
     <div class="flex-col">
-        <div class="flex-row table-row bold">
+        <div class="flex-row table-row bold border-bottom">
             <p>Name</p>
             <p>Einzelpreis</p>
             <p>Menge</p>
@@ -14,7 +14,7 @@
                 <p>{{(item.price * item.amount) | currency: 'EUR'}}</p>
             </div>
         }
-        <div class="flex-row table-row bold">
+        <div class="flex-row table-row bold border-top">
             <p>Summe:</p>
             <p>{{total | currency: 'EUR'}}</p>
         </div>
@@ -22,7 +22,7 @@
 
     <div id="toolbar" class="flex-col flex-center">
         <div class="flex-row">
-            <button (click)="delete()">Löschen</button>
+            <button (click)="confirm('Möchtest du wirklich alle Einträge löschen?') && delete()">Löschen</button>
             <button style="background: var(--primary); color: white" (click)="copyToClipboard()">Kopieren</button>
             <button style="background: var(--primary); color: white" (click)="sendPerMail()">Per Email senden</button>
         </div>

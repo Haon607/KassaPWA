@@ -45,4 +45,6 @@ export class ItemConfig {
     reset() {
         this.item.details = {price: 0, name: '', color: '#808080'};
     }
+
+    protected readonly confirm = confirm;
 }

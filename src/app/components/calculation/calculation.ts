@@ -20,7 +20,11 @@ export class Calculation {
     }
 
     get total() {
-        return this.items.map(item => item.price * item.amount).reduce((prev, curr) => prev + curr);
+        try {
+            return this.items.map(item => item.price * item.amount).reduce((prev, curr) => prev + curr);
+        } catch (e) {
+            return 0;
+        }
     }
 
     delete() {
@@ -65,4 +69,5 @@ export class Calculation {
         }
     }
 
+    protected readonly confirm = confirm;
 }

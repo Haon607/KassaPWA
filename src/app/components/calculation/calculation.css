@@ -14,11 +14,10 @@
     font-weight: bold;
 }
 
-#toolbar {
-    position: fixed;
-    bottom: 10px;
-    span {
-        color: red;
-        font-weight: bold;
-    }
+.border-top {
+    border-top: 1px solid #000;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #000;
 }

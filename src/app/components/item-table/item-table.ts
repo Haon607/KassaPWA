@@ -82,4 +82,6 @@ export class ItemTable {
         })
         this.storage.setItems(this.items);
     }
+
+    protected readonly confirm = confirm;
 }
