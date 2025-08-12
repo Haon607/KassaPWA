@@ -1,10 +1,15 @@
 <div class="body" (pointerdown)="onPress($event)" (pointerup)="onRelease($event)" (pointerleave)="onCancel()">
     <div class="flex-col item-details flex-center"
-         [ngStyle]="{'background': item.details?.color ?? 'var(--accentBackground)', 'color': getContrastColor(item.details?.color ?? '#000000')}">
+         [ngStyle]="{
+         'background': item.details?.color ?? 'var(--accentBackground)',
+         'color': getContrastColor(item.details?.color ?? '#000000'),
+         'outline-color': item.amount ? getContrastColor(item.details?.color ?? '#000000') : item.details?.color ?? 'var(--accentBackground)'}">
         @if (item.details) {
             <p class="item-name">{{ item.details.name }}</p>
-            <p>{{ item.details.price | currency: 'EUR' }}</p>
-            <p>({{ item.amount ?? 0 }})</p>
+            <div class="flex-row">
+                <p>{{ item.details.price | currency: 'EUR' }}</p>
+                <p>({{ item.amount ?? 0 }})</p>
+            </div>
         }
     </div>
 </div>

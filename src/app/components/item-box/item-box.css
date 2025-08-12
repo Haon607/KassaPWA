@@ -1,6 +1,8 @@
 .item-details {
     text-align: center;
-    outline: black 1px solid;
+    outline-width: 2px;
+    outline-style: solid;
+    outline-offset: -6px;
     height: 100%;
     width: 100%;
     border-radius: 8px;
