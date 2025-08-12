@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Item } from "../models/item";
 import { Configuration } from "../models/configuration";
 import { CalculationItem } from "../models/calculation";
+import { Calculation } from "../components/calculation/calculation";
 
 @Injectable({
     providedIn: 'root'
@@ -49,7 +50,8 @@ export class Memory {
 
     public getCalculationItems(): CalculationItem[] {
         try {
-            return JSON.parse(localStorage['calculationitems']);
+            return JSON.parse(localStorage['calculationitems'])
+                .map((obj: CalculationItem) => new CalculationItem(obj.name, obj.price, obj.amount));
         } catch (e) {
             return [];
         }

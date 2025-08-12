@@ -64,8 +64,7 @@ export class ItemTable {
     }
 
     submit() {
-        let calculationItems = this.storage.getCalculationItems()
-            .map(obj => new CalculationItem(obj.name, obj.price, obj.amount));
+        let calculationItems = this.storage.getCalculationItems();
         this.items.filter(item => item.amount && item.amount > 0).forEach(item => {
             calculationItems = new CalculationItem(item).addThisToThatArray(calculationItems);
             item.amount = undefined;
