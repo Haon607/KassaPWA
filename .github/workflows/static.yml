@@ -24,7 +24,9 @@ jobs:
         run: npm ci
 
       - name: Build Angular app
-        run: npm run build -- --configuration production --base-href /KassaPWA/
+        run: |
+          npm run build -- --configuration production --base-href /KassaPWA/
+          cp dist/KassaPWA/index.html dist/KassaPWA/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
