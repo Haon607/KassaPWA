@@ -26,10 +26,10 @@ jobs:
       - name: Build Angular app
         run: |
           npm run build -- --configuration production --base-href /KassaPWA/
-          cp dist/KassaPWA/index.html dist/KassaPWA/404.html
+          cp dist/KassaPWA/browser/index.html dist/KassaPWA/browser/404.html
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: dist/KassaPWA
+          folder: dist/KassaPWA/browser
