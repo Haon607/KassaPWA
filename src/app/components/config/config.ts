@@ -32,4 +32,6 @@ export class Config {
   }
 
   protected readonly compareObjects = compareObjects;
+  protected readonly window = window;
+  protected readonly document = document;
 }

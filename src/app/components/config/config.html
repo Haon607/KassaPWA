@@ -12,6 +12,9 @@
             <label>Sind Kacheln bearbeitbar:</label>
             <input type="checkbox" [(ngModel)]="config.itemsEditable">
         </div>
+        <div class="flex-col flex-center">
+            <button (click)="document.documentElement.requestFullscreen()">Vollbild</button>
+        </div>
     </div>
     <div id="toolbar" class="flex-col flex-center">
         @if (originalConfig.amountOfItems > config.amountOfItems) {
