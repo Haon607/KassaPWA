@@ -69,5 +69,29 @@ export class Calculation {
         }
     }
 
+    getTableCSV(): string {
+        // No headers as requested
+        return this.items
+            .map(item => `${item.name},${item.price.toFixed(2)},${item.amount},${(item.price * item.amount).toFixed(2)}`)
+            .join('\n');
+    }
+
+    downloadCSV() {
+        const csvContent = this.getTableCSV();
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+
+        // Format date as YYYY-MM-DD
+        const today = new Date();
+        const dateStr = today.toISOString().split('T')[0]; // e.g., "2025-08-14"
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${dateStr}.csv`;
+        link.click();
+
+        URL.revokeObjectURL(url);
+    }
+
     protected readonly confirm = confirm;
 }

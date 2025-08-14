@@ -24,6 +24,7 @@
         <div class="flex-row">
             <button (click)="confirm('Möchtest du wirklich alle Einträge löschen?') && delete()">Löschen</button>
             <button style="background: var(--primary); color: white" (click)="copyToClipboard()">Kopieren</button>
+            <button style="background: var(--primary); color: white" (click)="downloadCSV()">Als CSV herunterladen</button>
             <button style="background: var(--primary); color: white" (click)="sendPerMail()">Per Email senden</button>
         </div>
     </div>
