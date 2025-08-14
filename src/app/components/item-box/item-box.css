@@ -5,9 +5,12 @@
     outline-offset: -6px;
     height: 100%;
     width: 100%;
-    border-radius: 8px;
+    border-radius: 16px;
+    div {
+        font-size: 2rem;
+    }
 }
 
 .item-name {
-    font-size: 30px;
+    font-size: 4rem;
 }
