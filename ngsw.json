@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1755699319514,
+  "timestamp": 1755699827588,
   "index": "/KassaPWA/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/KassaPWA/favicon.ico",
         "/KassaPWA/index.html",
-        "/KassaPWA/main-UTVLL3WJ.js",
+        "/KassaPWA/main-DQZCGWJC.js",
         "/KassaPWA/manifest.webmanifest",
         "/KassaPWA/polyfills-B6TNHZQ6.js",
         "/KassaPWA/styles-IBQITHP6.css"
@@ -51,8 +51,8 @@
     "/KassaPWA/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "/KassaPWA/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/KassaPWA/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/KassaPWA/index.html": "b7657e019995d058fc09b19e6e3148f61d5c9efa",
-    "/KassaPWA/main-UTVLL3WJ.js": "70913e5a6e0d2e28a06c505400366211dbf96da9",
+    "/KassaPWA/index.html": "81e516217335c6b76ce0a506abbfd26eea39c432",
+    "/KassaPWA/main-DQZCGWJC.js": "1c7fd2d4ecd2774f7922381c45cce80b56ea3826",
     "/KassaPWA/manifest.webmanifest": "9efd1a12b70b9b7bbd6aeee6d0b66f1721688cd7",
     "/KassaPWA/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
     "/KassaPWA/styles-IBQITHP6.css": "2b8a4a33a63830a7625a0b6a4cb1eda27a91453a"
