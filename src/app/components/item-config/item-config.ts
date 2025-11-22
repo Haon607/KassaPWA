@@ -38,6 +38,7 @@ export class ItemConfig {
             }
         });
 
+        this.storage.deleteLatestSavedItems();
         this.storage.setItems(this.items);
         this.router.navigateByUrl('items');
     }

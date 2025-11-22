@@ -65,10 +65,53 @@ export class ItemTable {
 
     submit() {
         let calculationItems = this.storage.getCalculationItems();
-        this.items.filter(item => item.amount && item.amount > 0).forEach(item => {
-            calculationItems = new CalculationItem(item).addThisToThatArray(calculationItems);
-            item.amount = undefined;
+
+        const submittedItems: Item[] = [];
+
+        this.items
+            .filter(item => item.amount && item.amount > 0)
+            .forEach(item => {
+                submittedItems.push({...item});
+                calculationItems = new CalculationItem(item).addThisToThatArray(calculationItems);
+                item.amount = undefined;
+            });
+
+        this.storage.setLatestSavedItems(submittedItems);
+        this.storage.setCalculationItems(calculationItems);
+        this.storage.setItems(this.items);
+    }
+
+    revertSubmit() {
+        const lastSubmitted = this.storage.getLatestSavedItems();
+        if (!lastSubmitted || lastSubmitted.length === 0) return;
+
+        const calculationItems = this.storage.getCalculationItems();
+
+        lastSubmitted.forEach(sub => {
+            // Restore item amount
+            const item = this.items.find(i => i.index === sub.index);
+            if (item && sub.amount) {
+                if (!item.amount) item.amount = 0;
+                item.amount += sub.amount;
+            }
+
+            // Subtract from calculation list
+            const match = calculationItems.find(
+                ci => ci.name === sub.details!.name && ci.price === sub.details!.price
+            );
+
+            if (match) {
+                match.amount -= sub.amount ?? 0;
+
+                // Remove if empty
+                if (match.amount <= 0) {
+                    const index = calculationItems.indexOf(match);
+                    calculationItems.splice(index, 1);
+                }
+            }
         });
+
+        this.storage.deleteLatestSavedItems();
         this.storage.setCalculationItems(calculationItems);
         this.storage.setItems(this.items);
     }
@@ -81,6 +124,10 @@ export class ItemTable {
             } else return item;
         })
         this.storage.setItems(this.items);
+    }
+
+    get areItemsSelected(): boolean {
+        return this.items.filter(item => (item.amount ?? 0) > 0).length > 0;
     }
 
     protected readonly confirm = confirm;

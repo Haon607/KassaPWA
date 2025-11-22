@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Item } from "../models/item";
 import { Configuration } from "../models/configuration";
 import { CalculationItem } from "../models/calculation";
-import { Calculation } from "../components/calculation/calculation";
 
 @Injectable({
     providedIn: 'root'
@@ -55,5 +54,21 @@ export class Memory {
         } catch (e) {
             return [];
         }
+    }
+
+    public setLatestSavedItems(items: Item[]) {
+        localStorage['latestitems'] = JSON.stringify(items);
+    }
+
+    public getLatestSavedItems(): Item[] {
+        try {
+            return JSON.parse(localStorage['latestitems']);
+        } catch (e) {
+            return [];
+        }
+    }
+
+    public deleteLatestSavedItems() {
+        localStorage.removeItem('latestitems');
     }
 }

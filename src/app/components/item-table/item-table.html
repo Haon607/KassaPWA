@@ -1,7 +1,14 @@
 <div class="body">
     <div id="toolbar" class="flex-col flex-center">
         <div class="flex-row flex-size">
-            <button (click)="confirm('Möchtest du wirklich die aktuellen Mengen löschen?') &&reset()">Löschen</button>
+            @if (areItemsSelected) {
+                <button (click)="confirm('Möchtest du wirklich die aktuellen Mengen löschen?') && reset()">Löschen
+                </button>
+            } @else {
+                <button (click)="confirm('Zuletzte Eingabe zurückholen?') && revertSubmit()"
+                        [disabled]="!(storage.getLatestSavedItems().length > 0)">Zurück
+                </button>
+            }
             <h1 id="price">{{ price | currency: 'EUR' }}</h1>
             <button (click)="submit()">Kassieren</button>
         </div>
