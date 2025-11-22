@@ -5,6 +5,7 @@ import { ItemConfig } from "./components/item-config/item-config";
 import { Calculation } from "./components/calculation/calculation";
 
 export const routes: Routes = [
+    {path: '', component: ItemTable},
     {path: 'items', component: ItemTable},
     {path: 'item/:id', component: ItemConfig},
     {path: 'config', component: Config},
