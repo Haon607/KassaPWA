@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Item } from "../models/item";
 import { Configuration } from "../models/configuration";
 import { CalculationItem } from "../models/calculation";
+import {Calculation} from '../components/calculation/calculation';
 
 @Injectable({
     providedIn: 'root'
@@ -70,5 +71,21 @@ export class Memory {
 
     public deleteLatestSavedItems() {
         localStorage.removeItem('latestitems');
+    }
+
+    public setTabs(tabs: Tab[]) {
+        localStorage['tabs'] = JSON.stringify(tabs);
+    }
+
+    public getTabs(): Tab[] {
+        try {
+            return JSON.parse(localStorage['tabs']);
+        } catch (e) {
+            return [];
+        }
+    }
+
+    public deleteTabs() {
+        localStorage.removeItem('tabs');
     }
 }

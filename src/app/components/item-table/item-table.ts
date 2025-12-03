@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { Memory } from "../../services/memory.service";
-import { Item } from "../../models/item";
-import { ItemBox } from "../item-box/item-box";
-import { Configuration } from "../../models/configuration";
-import { CurrencyPipe, NgStyle } from "@angular/common";
-import { Router } from "@angular/router";
-import { CalculationItem } from "../../models/calculation";
+import {Component} from '@angular/core';
+import {Memory} from "../../services/memory.service";
+import {Item} from "../../models/item";
+import {ItemBox} from "../item-box/item-box";
+import {Configuration} from "../../models/configuration";
+import {CurrencyPipe, NgStyle} from "@angular/common";
+import {Router} from "@angular/router";
+import {CalculationItem} from "../../models/calculation";
 
 @Component({
     selector: 'app-item-table',
@@ -131,4 +131,8 @@ export class ItemTable {
     }
 
     protected readonly confirm = confirm;
+
+    protected openStorage() {
+        this.router.navigateByUrl('itemstore');
+    }
 }
