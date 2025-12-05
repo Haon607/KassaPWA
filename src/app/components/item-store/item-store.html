@@ -1,1 +1,24 @@
-<p>item-store works!</p>
+<div class="body">
+    <h1 id="title">{{ getAction() === 'storing' ? "Wohin hinterlegen?" : "Was abrechnen?" }}</h1>
+    <div class="flex-col">
+        @for (tab of tabs; track tab.name + tab.openedTime) {
+            <button class="flex-row table-row" (click)="actionThisTab(tab)">
+                <p class="bold">{{ tab.name }}</p>
+                <p>Geöffnet am: {{ tab.openedTime | date: 'd.M. H:mm' }} Uhr</p>
+                <p>Menge: {{ getItemAmount(tab) }}</p>
+                <p class="bold">{{ getTabTotal(tab) | currency: 'EUR' }}</p>
+            </button>
+        }
+    </div>
+    @if (getAction() === 'storing') {
+        <div class="flex-row add-tab">
+            <p class="bold">Neu:</p>
+            <input [(ngModel)]="newTabName">
+            <button (click)="openNewTab()" [disabled]="newTabName === ''">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                    <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
+                </svg>
+            </button>
+        </div>
+    }
+</div>
