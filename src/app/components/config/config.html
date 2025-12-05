@@ -18,14 +18,18 @@
     </div>
     <div id="toolbar" class="flex-col flex-center">
         @if (originalConfig.amountOfItems > config.amountOfItems) {
-            <span>Speichern kann zum Verlust von bereits definierten Kacheln führen!</span>
+            <span class="warn">Speichern kann zum Verlust von bereits definierten Kacheln führen!</span>
         }
         @if (!compareObjects(originalConfig, config)) {
-            <span>Ungespeicherte Änderungen!</span>
+            <span class="warn">Ungespeicherte Änderungen!</span>
         }
-        <div class="flex-row">
-            <button [disabled]="compareObjects(originalConfig, config)" (click)="cancel()">Änderungen verwerfen</button>
-            <button [disabled]="compareObjects(originalConfig, config)" style="background: var(--primary); color: white" (click)="save()">Speichern</button>
-        </div>
+        @if (storage.getTabs().length > 0) {
+            <span class="error">Zuerst hinterlegte Bestellungen abrechnen!</span>
+        } @else {
+            <div class="flex-row">
+                <button [disabled]="compareObjects(originalConfig, config)" (click)="cancel()">Änderungen verwerfen</button>
+                <button [disabled]="compareObjects(originalConfig, config)" style="background: var(--primary); color: white" (click)="save()">Speichern</button>
+            </div>
+        }
     </div>
 </div>

@@ -4,7 +4,7 @@
         @for (tab of tabs; track tab.name + tab.openedTime) {
             <button class="flex-row table-row" (click)="actionThisTab(tab)">
                 <p class="bold">{{ tab.name }}</p>
-                <p>Geöffnet am: {{ tab.openedTime | date: 'd.M. H:mm' }} Uhr</p>
+                <p>Vom: {{ tab.openedTime | date: 'd.M. H:mm' }} Uhr</p>
                 <p>Menge: {{ getItemAmount(tab) }}</p>
                 <p class="bold">{{ getTabTotal(tab) | currency: 'EUR' }}</p>
             </button>

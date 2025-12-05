@@ -4,6 +4,8 @@ import { Memory } from "../../services/memory.service";
 import { Tab } from "../../models/tab";
 import { FormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
+import { mergeItems } from "../../models/item";
+import { Configuration } from "../../models/configuration";
 
 @Component({
     selector: 'app-item-store',
@@ -43,11 +45,14 @@ export class ItemStore {
     actionThisTab(tab: Tab) {
         switch (this.getAction()) {
             case 'storing':
-                //todo add current itemlist items to this tab
+                tab.items = mergeItems(tab.items, this.storage.getItems().filter(item => (item.amount ?? 0) > 0));
                 this.resetAndReturn();
                 break;
             case 'restoring':
-                //todo load items back to itemlist, remove this tab
+                this.storage.setItems(mergeItems(this.storage.getItems(), tab.items));
+                this.tabs = this.tabs.filter(aTab => aTab.openedTime !== tab.openedTime);
+                this.tabs = this.tabs.filter(aTab => aTab.openedTime !== tab.openedTime);
+                this.storage.setTabs(this.tabs);
                 this.router.navigateByUrl('items');
                 break;
         }
@@ -70,7 +75,11 @@ export class ItemStore {
                 return item;
             } else return item;
         }));
+        let con = this.storage.getConfig();
+        con.itemsEditable = false;
+        this.storage.setConfig(con);
 
+        this.storage.setTabs(this.tabs);
         this.router.navigateByUrl('items');
     }
 }
