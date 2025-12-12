@@ -64,7 +64,12 @@ body {
     background: white;
     width: 100%;
     span {
-        color: red;
         font-weight: bold;
+    }
+    .error {
+        color: red;
+    }
+    .warn {
+        color: orange;
     }
 }

@@ -21,6 +21,9 @@
     </div>
 
     <div id="toolbar" class="flex-col flex-center">
+        @if (storage.getTabs().length > 0) {
+            <span class="warn">Nicht alle hinterlegten Bestellungen wurden abgerechnet!</span>
+        }
         <div class="flex-row">
             <button (click)="confirm('Möchtest du wirklich alle Einträge löschen?') && delete()">Löschen</button>
             <button style="background: var(--primary); color: white" (click)="copyToClipboard()">Kopieren</button>

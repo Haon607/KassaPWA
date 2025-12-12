@@ -1,0 +1,30 @@
+#title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.flex-col {
+    width: 80%;
+    text-align: center;
+}
+
+.table-row {
+    justify-content: space-between;
+    p {
+        width: 100%;
+    }
+    min-height: 5rem;
+    margin-bottom: 1rem;
+    border-radius: 1000px;
+    font-size: 1.5rem;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.add-tab {
+    margin-top: 1rem;
+    justify-content: center;
+    align-items: center;
+}
