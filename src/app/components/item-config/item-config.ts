@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Item } from "../../models/item";
 import { Memory } from "../../services/memory.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { DialogService } from '../dialog/dialog.service';
 
 @Component({
     selector: 'app-item-config', imports: [ReactiveFormsModule, FormsModule], templateUrl: './item-config.html', standalone: true, styleUrl: './item-config.css'
@@ -10,7 +11,12 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class ItemConfig {
     private items: Item[];
 
-    constructor(private storage: Memory, private activatedRoute: ActivatedRoute, private router: Router) {
+    constructor(
+        private storage: Memory,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private dialog: DialogService,
+    ) {
         this.items = this.storage.getItems();
 
         this.items.forEach(item => {
@@ -47,5 +53,9 @@ export class ItemConfig {
         this.item.details = {price: 0, name: '', color: '#808080'};
     }
 
-    protected readonly confirm = confirm;
+    protected async confirmReset(): Promise<void> {
+        if (await this.dialog.confirm('Möchtest du wirklich diese Kachel auf den Standard zurücksetzen?')) {
+            this.reset();
+        }
+    }
 }

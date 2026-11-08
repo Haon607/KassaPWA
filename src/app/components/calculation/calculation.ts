@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CalculationItem } from "../../models/calculation";
 import { Memory } from "../../services/memory.service";
 import { CurrencyPipe } from "@angular/common";
+import { DialogService } from '../dialog/dialog.service';
 
 @Component({
     selector: 'app-calculation',
@@ -15,7 +16,7 @@ import { CurrencyPipe } from "@angular/common";
 export class Calculation {
     items: CalculationItem[];
 
-    constructor(protected storage: Memory) {
+    constructor(protected storage: Memory, private dialog: DialogService) {
         this.items = storage.getCalculationItems();
     }
 
@@ -30,6 +31,12 @@ export class Calculation {
     delete() {
         this.storage.deleteCalculationItems();
         this.items = [];
+    }
+
+    protected async confirmDelete(): Promise<void> {
+        if (await this.dialog.confirm('Möchtest du wirklich alle Einträge löschen?')) {
+            this.delete();
+        }
     }
 
     getTableText(): string {
@@ -93,5 +100,4 @@ export class Calculation {
         URL.revokeObjectURL(url);
     }
 
-    protected readonly confirm = confirm;
 }

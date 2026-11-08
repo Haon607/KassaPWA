@@ -1,0 +1,35 @@
+<dialog
+    #dialogElement
+    class="app-dialog"
+    aria-modal="true"
+    aria-labelledby="dialog-title"
+    aria-describedby="dialog-message"
+    (cancel)="dismiss($event)"
+    (click)="dismissFromBackdrop($event)">
+    <section class="dialog-panel" role="alertdialog">
+        <header class="dialog-header">
+            <span [class]="'dialog-icon ' + attributes().level" aria-hidden="true">
+                {{ icon() }}
+            </span>
+            <h2 id="dialog-title">{{ title() }}</h2>
+
+            @if (attributes().dismissible !== false) {
+                <button class="dialog-close" type="button" aria-label="Dialog schließen" (click)="dismiss()">×</button>
+            }
+        </header>
+
+        <p id="dialog-message" class="dialog-message">{{ attributes().message }}</p>
+
+        <footer class="dialog-actions">
+            @for (button of buttons(); track $index) {
+                <button
+                    type="button"
+                    [class.dialog-button-primary]="button.appearance === 'primary'"
+                    [attr.autofocus]="button.autofocus ? '' : null"
+                    (click)="respond(button.value)">
+                    {{ button.label }}
+                </button>
+            }
+        </footer>
+    </section>
+</dialog>

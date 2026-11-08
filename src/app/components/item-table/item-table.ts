@@ -6,6 +6,7 @@ import {Configuration} from "../../models/configuration";
 import {CurrencyPipe, NgStyle} from "@angular/common";
 import {Router} from "@angular/router";
 import {CalculationItem} from "../../models/calculation";
+import {DialogService} from "../dialog/dialog.service";
 
 @Component({
     selector: 'app-item-table',
@@ -22,7 +23,7 @@ export class ItemTable {
     items: Item[];
     config: Configuration;
 
-    constructor(protected storage: Memory, private router: Router) {
+    constructor(protected storage: Memory, private router: Router, private dialog: DialogService) {
         this.items = storage.getItems();
         this.config = storage.getConfig();
         if (this.items.length > this.config.amountOfItems)
@@ -126,11 +127,21 @@ export class ItemTable {
         this.storage.setItems(this.items);
     }
 
+    protected async confirmReset(): Promise<void> {
+        if (await this.dialog.confirm('Möchtest du wirklich die aktuellen Mengen löschen?')) {
+            this.reset();
+        }
+    }
+
+    protected async confirmRevertSubmit(): Promise<void> {
+        if (await this.dialog.confirm('Letzte Eingabe zurückholen?')) {
+            this.revertSubmit();
+        }
+    }
+
     get areItemsSelected(): boolean {
         return this.items.filter(item => (item.amount ?? 0) > 0).length > 0;
     }
-
-    protected readonly confirm = confirm;
 
     protected openStorage() {
         this.router.navigateByUrl('itemstore');

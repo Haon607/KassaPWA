@@ -1,0 +1,107 @@
+:host {
+    display: contents;
+}
+
+.app-dialog {
+    width: min(520px, calc(100vw - 30px));
+    max-width: none;
+    margin: auto;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+}
+
+.app-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.dialog-panel {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 24px;
+    color: #3c4043;
+    background: var(--background);
+    border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
+        rgba(0, 0, 0, 0.14) 0 6px 10px 0,
+        rgba(0, 0, 0, 0.12) 0 1px 18px 0;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dialog-header h2 {
+    flex: 1;
+    font-size: 1.5rem;
+}
+
+.dialog-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 42px;
+    height: 42px;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--accentBackground);
+    border-radius: 50%;
+}
+
+.dialog-icon.error {
+    background: var(--primary);
+}
+
+.dialog-icon.warning {
+    color: #3c4043;
+    background: orange;
+}
+
+.dialog-close {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    font-size: 1.5rem;
+    border-radius: 50%;
+}
+
+.dialog-message {
+    margin: 22px 0;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+.dialog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.dialog-actions button {
+    min-width: 120px;
+}
+
+.dialog-actions .dialog-button-primary {
+    color: white;
+    background: var(--primary);
+}
+
+@media (max-width: 480px) {
+    .dialog-panel {
+        padding: 20px;
+    }
+
+    .dialog-actions {
+        flex-direction: column;
+    }
+
+    .dialog-actions button {
+        width: 100%;
+    }
+}
