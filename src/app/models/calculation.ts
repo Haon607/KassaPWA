@@ -16,14 +16,12 @@ export class CalculationItem {
             this.name = nameOrItem + '';
             this.price = price!;
             this.amount = amount!;
+        } else if (nameOrItem.details) {
+            this.name = nameOrItem.details.name;
+            this.price = nameOrItem.details.price;
+            this.amount = nameOrItem.amount ?? 0;
         } else {
-            if (nameOrItem.details) {
-                this.name = nameOrItem.details.name;
-                this.price = nameOrItem.details.price;
-                this.amount = nameOrItem.amount ?? 0;
-            } else {
-                throw Error(`Details are undefined`);
-            }
+            throw Error(`Details are undefined`);
         }
     }
 
