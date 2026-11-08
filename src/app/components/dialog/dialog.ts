@@ -16,6 +16,7 @@ export class Dialog implements OnDestroy {
         level: 'info',
         message: '?',
     });
+    protected selectedTableCell?: string;
 
     private readonly subscription: Subscription;
 
@@ -73,6 +74,14 @@ export class Dialog implements OnDestroy {
         this.dialogService.resolve(result);
     }
 
+    protected selectTableCell(rowIndex: number, columnIndex: number): void {
+        this.selectedTableCell = `${rowIndex}:${columnIndex}`;
+    }
+
+    protected isTableCellSelected(rowIndex: number, columnIndex: number): boolean {
+        return this.selectedTableCell === `${rowIndex}:${columnIndex}`;
+    }
+
     protected dismiss(event?: Event): void {
         event?.preventDefault();
 
@@ -90,6 +99,7 @@ export class Dialog implements OnDestroy {
     }
 
     private displayPopUp(attributes: DialogAttributes): void {
+        this.selectedTableCell = undefined;
         this.attributes.set(attributes);
         this.changeDetector.detectChanges();
 

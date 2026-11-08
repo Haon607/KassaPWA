@@ -1,6 +1,7 @@
 <dialog
     #dialogElement
     class="app-dialog"
+    [class.dialog-with-table]="attributes().table"
     aria-modal="true"
     aria-labelledby="dialog-title"
     aria-describedby="dialog-message"
@@ -19,6 +20,42 @@
         </header>
 
         <p id="dialog-message" class="dialog-message">{{ attributes().message }}</p>
+
+        @if (attributes().table; as table) {
+            <div class="dialog-table-wrapper">
+                <table class="dialog-table" [attr.aria-label]="table.ariaLabel">
+                    <thead>
+                        <tr>
+                            <th class="dialog-table-corner" scope="col">
+                                <span class="dialog-table-column-axis">{{ table.columnLabel }} →</span>
+                                <span class="dialog-table-row-axis">{{ table.rowLabel }} ↓</span>
+                            </th>
+                            @for (column of table.columns; track column) {
+                                <th scope="col">{{ column }}</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (row of table.rows; track row.label; let rowIndex = $index) {
+                            <tr>
+                                <th scope="row">{{ row.label }}</th>
+                                @for (cell of row.cells; track $index; let columnIndex = $index) {
+                                    <td
+                                        tabindex="0"
+                                        [class.dialog-table-cell-selected]="isTableCellSelected(rowIndex, columnIndex)"
+                                        [attr.aria-selected]="isTableCellSelected(rowIndex, columnIndex)"
+                                        (click)="selectTableCell(rowIndex, columnIndex)"
+                                        (keydown.enter)="selectTableCell(rowIndex, columnIndex)"
+                                        (keydown.space)="selectTableCell(rowIndex, columnIndex); $event.preventDefault()">
+                                        {{ cell }}
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
 
         <footer class="dialog-actions">
             @for (button of buttons(); track $index) {

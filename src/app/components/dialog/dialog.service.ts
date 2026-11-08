@@ -56,8 +56,22 @@ export interface DialogAttributes {
     level: 'error' | 'warning' | 'success' | 'info';
     title?: string;
     message: string;
+    table?: DialogTable;
     buttons?: DialogButton[];
     dismissible?: boolean;
+}
+
+export interface DialogTable {
+    ariaLabel: string;
+    rowLabel: string;
+    columnLabel: string;
+    columns: string[];
+    rows: DialogTableRow[];
+}
+
+export interface DialogTableRow {
+    label: string;
+    cells: string[];
 }
 
 export interface DialogButton {

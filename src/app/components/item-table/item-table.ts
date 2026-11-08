@@ -6,7 +6,7 @@ import {Configuration} from "../../models/configuration";
 import {CurrencyPipe, NgStyle} from "@angular/common";
 import {Router} from "@angular/router";
 import {CalculationItem} from "../../models/calculation";
-import {DialogService} from "../dialog/dialog.service";
+import {DialogService, DialogTable} from "../dialog/dialog.service";
 
 @Component({
     selector: 'app-item-table',
@@ -20,8 +20,19 @@ import {DialogService} from "../dialog/dialog.service";
     styleUrl: './item-table.css'
 })
 export class ItemTable {
+    private static readonly WHOLE_EURO_OFFSETS = [0, 1, 2, 3, 4];
+    private static readonly TOTAL_ROUNDING_STEPS_IN_EUROS = [5, 10];
+    private static readonly PROVIDED_ROUNDING_STEPS_IN_CENTS = [10, 20, 50];
+    private static readonly PROVIDED_ROUNDING_STEPS_IN_EUROS = [5, 10, 20, 50, 100];
+
     items: Item[];
     config: Configuration;
+
+    private readonly euroFormatter = new Intl.NumberFormat('de-AT', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2,
+    });
 
     constructor(protected storage: Memory, private router: Router, private dialog: DialogService) {
         this.items = storage.getItems();
@@ -145,5 +156,63 @@ export class ItemTable {
 
     protected openStorage() {
         this.router.navigateByUrl('itemstore');
+    }
+
+    protected async showChangeTable(price: number): Promise<void> {
+        if (price === 0) return;
+        const priceInCents = Math.max(0, Math.round(price * 100));
+        const roundedPriceInCents = this.roundUpToMultiple(priceInCents, 100);
+        const totalAmounts = this.uniqueSortedAmounts([
+            priceInCents,
+            ...ItemTable.WHOLE_EURO_OFFSETS.map(offset => roundedPriceInCents + offset * 100),
+            ...ItemTable.TOTAL_ROUNDING_STEPS_IN_EUROS.map(increment =>
+                this.roundUpToMultiple(priceInCents, increment * 100)
+            ),
+        ]);
+        const providedAmounts = this.uniqueSortedAmounts([
+            ...ItemTable.PROVIDED_ROUNDING_STEPS_IN_CENTS.map(increment =>
+                this.roundUpToMultiple(priceInCents, increment)
+            ),
+            ...ItemTable.WHOLE_EURO_OFFSETS.map(offset => roundedPriceInCents + offset * 100),
+            ...ItemTable.PROVIDED_ROUNDING_STEPS_IN_EUROS.map(increment =>
+                this.roundUpToMultiple(priceInCents, increment * 100)
+            ),
+        ]);
+        const table: DialogTable = {
+            ariaLabel: 'Wechselgeld nach Gesamtbetrag und gegebenem Betrag',
+            rowLabel: 'Gesamt',
+            columnLabel: 'Gegeben',
+            columns: providedAmounts.map(amount => this.formatCents(amount)),
+            rows: totalAmounts.map(total => ({
+                label: this.formatCents(total),
+                cells: providedAmounts.map(provided =>
+                    provided >= total ? this.formatCents(provided - total) : '–'
+                ),
+            })),
+        };
+
+        await this.dialog.open({
+            dismissible: true,
+            level: 'info',
+            title: `Wechselgeld für ${this.formatEuro(price)}`,
+            message: 'Zeilen: Gesamt | Spalten: gegebener Betrag',
+            table,
+        });
+    }
+
+    private roundUpToMultiple(amount: number, increment: number): number {
+        return Math.ceil(amount / increment) * increment;
+    }
+
+    private uniqueSortedAmounts(amounts: number[]): number[] {
+        return [...new Set(amounts)].sort((first, second) => first - second);
+    }
+
+    private formatCents(amountInCents: number): string {
+        return this.formatEuro(amountInCents / 100);
+    }
+
+    private formatEuro(amount: number): string {
+        return this.euroFormatter.format(amount);
     }
 }
